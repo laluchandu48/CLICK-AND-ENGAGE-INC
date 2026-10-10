@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="1200" height="320">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC23D"/><stop offset="1" stop-color="#FF5A36"/></linearGradient></defs>
+  <rect width="300" height="80" fill="#0D0E16"/>
+  <g transform="translate(12 12) scale(1.17)">
+    <path d="M36.7 11.3 A18 18 0 1 0 36.7 36.7" fill="none" stroke="url(#g)" stroke-width="5.5" stroke-linecap="round"/>
+    <path d="M19 15 L19 34 L23.6 29.6 L26.8 36.4 L30 35 L26.9 28.3 L33 28.3 Z" fill="#EEEDF6" stroke="#EEEDF6" stroke-width="1.2" stroke-linejoin="round"/>
+    <g stroke="#FF5A36" stroke-width="2.6" stroke-linecap="round"><path d="M40.5 21.5 L45 20"/><path d="M41 26.5 L45.5 28"/><path d="M38.5 16.8 L41.6 13.6"/></g>
+  </g>
+  <text x="80" y="51" font-family="Bricolage Grotesque, Avenir Next, Segoe UI, Arial, sans-serif" font-weight="800" font-size="34" letter-spacing="-1" fill="#EEEDF6">Click<tspan fill="#FF5A36">N</tspan>Engage</text>
+</svg>

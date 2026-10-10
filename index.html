@@ -1,0 +1,461 @@
+<title>ClickNEngage</title>
+<meta name="description" content="ClickNEngage is a performance marketing studio for paid media, lead generation and growth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: heat-map hero (3D click-ripple grid) → metric ticker → tilt-card services → 3D platform ring → why → process → contact.
+   Palette idea: a click heat-map, cool teal rising through amber to hot coral. Dark-first. */
+:root{
+  --bg:#0D0E16; --surface:#161826; --surface-2:#1E2032; --fg:#EEEDF6; --muted:#9C9CB8; --line:#2A2C40;
+  --hot:#FF5A36; --warm:#FFC23D; --cool:#2EC4B6; --on-hot:#1A0A05;
+  --font-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body:"Manrope", "Segoe UI", system-ui, sans-serif;
+  --font-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --step--1:.82rem; --step-0:1rem; --step-1:1.2rem; --step-2:1.6rem; --step-3:clamp(2rem,4vw,2.9rem); --step-4:clamp(2.8rem,7.5vw,5.6rem);
+  --radius:18px; --maxw:1180px;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#F5F4FA; --surface:#FFFFFF; --surface-2:#EEEDF6; --fg:#15162B; --muted:#5C5D78; --line:#E0DFEB;
+    --hot:#E8431F; --warm:#C98A00; --cool:#0F9488; --on-hot:#FFFFFF; color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F5F4FA; --surface:#FFFFFF; --surface-2:#EEEDF6; --fg:#15162B; --muted:#5C5D78; --line:#E0DFEB;
+  --hot:#E8431F; --warm:#C98A00; --cool:#0F9488; --on-hot:#FFFFFF; color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:var(--step-0);line-height:1.6;overflow-x:hidden}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-display);line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.02em}
+p{margin:0}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+.eyebrow{font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.14em;text-transform:uppercase;color:var(--hot)}
+:focus-visible{outline:2px solid var(--warm);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:38px;height:38px;flex:none}
+.wordmark{font-family:var(--font-display);font-weight:800;font-size:1.28rem;letter-spacing:-.03em}
+.wordmark b{color:var(--hot);font-weight:800}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;color:var(--muted);font-weight:600;font-size:.95rem}
+.nav ul a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:700;text-decoration:none;border:1px solid transparent;cursor:pointer;font:inherit;font-weight:700;transition:transform .2s ease, box-shadow .2s ease}
+.btn-hot{background:var(--hot);color:var(--on-hot);box-shadow:0 8px 24px -10px var(--hot)}
+.btn-hot:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px var(--hot)}
+.btn-ghost{border-color:var(--line);color:var(--fg);background:transparent}
+.btn-ghost:hover{border-color:var(--muted)}
+@media (max-width:860px){.nav ul{display:none}}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+#grid3d{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 80%,transparent) 38%,transparent 70%)}
+.hero .wrap{position:relative;z-index:2;padding-block:clamp(72px,11vw,140px) clamp(64px,9vw,110px);pointer-events:none}
+.hero-copy{max-width:600px;display:grid;gap:24px;pointer-events:auto}
+.hero h1{font-size:var(--step-4);font-weight:800}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--warm),var(--hot));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lede{font-size:var(--step-1);color:var(--muted);max-width:52ch}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hint{font-family:var(--font-mono);font-size:var(--step--1);color:var(--muted);display:flex;align-items:center;gap:8px}
+.hint i{width:8px;height:8px;border-radius:50%;background:var(--hot);box-shadow:0 0 0 0 var(--hot);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.hero h1,.hero .lede,.hero .ctas{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.hero .lede{animation-delay:.08s}.hero .ctas{animation-delay:.16s}
+@keyframes rise{from{transform:translateY(18px)}to{transform:none}}
+@media (max-width:760px){.hero::after{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 55%,transparent),color-mix(in srgb,var(--bg) 85%,transparent))}}
+
+/* Ticker */
+.ticker{border-bottom:1px solid var(--line);overflow:hidden;background:var(--surface)}
+.ticker-track{display:flex;width:max-content;animation:scroll 36s linear infinite}
+.ticker span{font-family:var(--font-mono);font-size:.9rem;padding:16px 26px;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:26px}
+.ticker span::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--warm)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding-block:clamp(72px,10vw,120px)}
+.section-head{display:grid;gap:14px;max-width:640px;margin-bottom:48px}
+.section-head h2{font-size:var(--step-3);font-weight:800}
+.section-head p{color:var(--muted);font-size:var(--step-1)}
+
+/* Services: tilt cards */
+.services{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;perspective:1000px}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:grid;gap:12px;align-content:start;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease,border-color .25s ease;min-width:0}
+.card:hover{border-color:color-mix(in srgb,var(--hot) 55%,var(--line))}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--hot) 16%,transparent),transparent 65%);opacity:0;transition:opacity .25s}
+.card:hover::before{opacity:1}
+.card .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--surface-2);color:var(--hot);transform:translateZ(40px)}
+.card .ico svg{width:24px;height:24px}
+.card h3{font-size:var(--step-1);font-weight:700;letter-spacing:-.01em;transform:translateZ(26px)}
+.card p{color:var(--muted);font-size:.95rem;transform:translateZ(14px)}
+.card .kpi{font-family:var(--font-mono);font-size:.75rem;color:var(--cool);letter-spacing:.06em;transform:translateZ(14px)}
+
+/* Platforms: 3D ring */
+.platforms{background:var(--surface);border-block:1px solid var(--line);overflow:hidden}
+.ring-stage{height:300px;perspective:1100px;display:grid;place-items:center;margin-top:10px}
+.ring{position:relative;width:170px;height:96px;transform-style:preserve-3d;animation:spin 30s linear infinite}
+.ring:hover{animation-play-state:paused}
+.tile{position:absolute;inset:0;display:grid;place-items:center;border-radius:16px;border:1px solid var(--line);background:var(--bg);font-family:var(--font-display);font-weight:700;font-size:1.1rem;text-align:center;padding:10px;backface-visibility:hidden;transform:rotateY(calc(var(--i) * 30deg)) translateZ(var(--r,380px))}
+.tile small{display:block;font-family:var(--font-mono);font-weight:400;font-size:.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+@keyframes spin{from{transform:rotateX(-8deg) rotateY(0)}to{transform:rotateX(-8deg) rotateY(-360deg)}}
+@media (max-width:700px){.ring{width:130px;height:84px}.tile{--r:260px;font-size:.95rem}.ring-stage{height:240px}}
+.platform-note{color:var(--muted);max-width:60ch;margin-top:24px}
+
+/* Why */
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:40px}
+.why div{display:grid;gap:10px;align-content:start;border-top:2px solid var(--hot);padding-top:20px}
+.why h3{font-size:var(--step-2);font-weight:700}
+.why p{color:var(--muted)}
+
+/* Process */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;counter-reset:s}
+.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:grid;gap:10px;align-content:start}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--font-mono);color:var(--warm);font-size:.85rem}
+.steps h3{font-size:var(--step-1);font-weight:700}
+.steps p{color:var(--muted);font-size:.95rem}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+.contact-info{display:grid;gap:20px;min-width:0}
+.contact-info h2{font-size:var(--step-3);font-weight:800}
+.contact-info p{color:var(--muted);font-size:var(--step-1)}
+.email-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-family:var(--font-mono)}
+.email-row code{font-family:inherit;background:var(--surface);border:1px solid var(--line);padding:10px 14px;border-radius:10px;user-select:all;overflow-wrap:anywhere}
+form{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,3vw,32px);display:grid;gap:16px;min-width:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:560px){.row{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-weight:600;font-size:.9rem}
+input,select,textarea{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--hot)}
+textarea{min-height:120px;resize:vertical}
+.form-status{font-size:.9rem;color:var(--cool);min-height:1.4em}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding-block:36px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;color:var(--muted);font-size:.9rem}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="cneGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFC23D"/>
+      <stop offset="1" stop-color="#FF5A36"/>
+    </linearGradient>
+    <symbol id="cneMark" viewBox="0 0 48 48">
+      <path d="M36.7 11.3 A18 18 0 1 0 36.7 36.7" fill="none" stroke="url(#cneGrad)" stroke-width="5.5" stroke-linecap="round"/>
+      <path d="M19 15 L19 34 L23.6 29.6 L26.8 36.4 L30 35 L26.9 28.3 L33 28.3 Z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      <g stroke="#FF5A36" stroke-width="2.6" stroke-linecap="round">
+        <path d="M40.5 21.5 L45 20"/><path d="M41 26.5 L45.5 28"/><path d="M38.5 16.8 L41.6 13.6"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="ClickNEngage home">
+      <svg aria-hidden="true"><use href="#cneMark"/></svg>
+      <span class="wordmark">Click<b>N</b>Engage</span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#platforms">Platforms</a></li>
+        <li><a href="#why">Why us</a></li>
+        <li><a href="#process">Process</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-hot" href="#contact">Get a free audit</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" style="padding:0">
+    <canvas id="grid3d" aria-label="Interactive 3D grid. Click to send a ripple across it." role="img"></canvas>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Performance marketing studio</span>
+        <h1>Every click, <em>engaged.</em></h1>
+        <p class="lede">ClickNEngage plans, buys and optimises paid media across search, social and native, so your ad spend turns into leads, sales and customers who come back.</p>
+        <div class="ctas">
+          <a class="btn btn-hot" href="#contact">Plan my campaign →</a>
+          <a class="btn btn-ghost" href="#services">See services</a>
+        </div>
+        <span class="hint"><i></i>Click the grid to send a ripple</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-label="Metrics we optimise for">
+    <div class="ticker-track">
+      <span>CTR</span><span>CPC</span><span>CPL</span><span>CPA</span><span>ROAS</span><span>LTV</span><span>Conversion rate</span><span>Quality Score</span><span>Frequency</span><span>Reach</span>
+      <span aria-hidden="true">CTR</span><span aria-hidden="true">CPC</span><span aria-hidden="true">CPL</span><span aria-hidden="true">CPA</span><span aria-hidden="true">ROAS</span><span aria-hidden="true">LTV</span><span aria-hidden="true">Conversion rate</span><span aria-hidden="true">Quality Score</span><span aria-hidden="true">Frequency</span><span aria-hidden="true">Reach</span>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Services</span>
+        <h2>Everything between the ad and the sale</h2>
+        <p>Pick one service or hand us the whole funnel. Each one is measured against a number you care about.</p>
+      </div>
+      <div class="services" id="cards">
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div><h3>Performance Marketing</h3><p>Campaigns built around results. Grow sales as a retailer or an affiliate and pay for outcomes, not impressions.</p><span class="kpi">ROAS · CPA</span></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></div><h3>Lead Generation</h3><p>Find the prospects most likely to buy, qualify them, and send clean leads straight into your CRM.</p><span class="kpi">CPL · Lead quality</span></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><h3>Media Buying</h3><p>Programmatic, native and direct placements bought at the right price, on the sites your audience reads.</p><span class="kpi">CPM · Viewability</span></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div><h3>Search Marketing</h3><p>Paid search and SEO working together, so you show up at the top when buyers are ready.</p><span class="kpi">Quality Score · CTR</span></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div><h3>Social &amp; Influencer</h3><p>Paid social and creator partnerships made for each platform's feed, format and audience.</p><span class="kpi">Engagement · Reach</span></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6L20 9.3l-4 4 1 5.7-5-2.8-5 2.8 1-5.7-4-4 5.4-.7z"/></svg></div><h3>Branding &amp; Creative</h3><p>A brand that stands apart from competitors, with ad creative that is tested before it is scaled.</p><span class="kpi">Recall · Thumb-stop rate</span></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="M17 10l4-2v8l-4-2"/></svg></div><h3>Content &amp; Video</h3><p>Stories, short-form video and landing pages that build demand and give your ads something worth clicking.</p><span class="kpi">View rate · Time on page</span></article>
+        <article class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div><h3>Analytics &amp; Consulting</h3><p>Tracking set up properly, clear dashboards, and a strategy session when you aren't sure where to spend next.</p><span class="kpi">Attribution · LTV</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="platforms" class="platforms">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Platforms</span>
+        <h2>We run campaigns wherever your customers scroll</h2>
+        <p>Hover the ring to pause it.</p>
+      </div>
+      <div class="ring-stage" aria-hidden="true">
+        <div class="ring">
+          <div class="tile" style="--i:0">Google Ads<small>Search</small></div>
+          <div class="tile" style="--i:1">Meta<small>Social</small></div>
+          <div class="tile" style="--i:2">TikTok<small>Short video</small></div>
+          <div class="tile" style="--i:3">YouTube<small>Video</small></div>
+          <div class="tile" style="--i:4">LinkedIn<small>B2B</small></div>
+          <div class="tile" style="--i:5">Microsoft Ads<small>Search</small></div>
+          <div class="tile" style="--i:6">Taboola<small>Native</small></div>
+          <div class="tile" style="--i:7">Outbrain<small>Native</small></div>
+          <div class="tile" style="--i:8">Snapchat<small>Social</small></div>
+          <div class="tile" style="--i:9">Pinterest<small>Discovery</small></div>
+          <div class="tile" style="--i:10">X<small>Social</small></div>
+          <div class="tile" style="--i:11">Programmatic<small>DSP</small></div>
+        </div>
+      </div>
+      <ul class="sr-only">
+        <li>Google Ads</li><li>Meta</li><li>TikTok</li><li>YouTube</li><li>LinkedIn</li><li>Microsoft Ads</li><li>Taboola</li><li>Outbrain</li><li>Snapchat</li><li>Pinterest</li><li>X</li><li>Programmatic DSPs</li>
+      </ul>
+      <p class="platform-note">Every platform gets its own plan. What works in a search ad rarely works in a TikTok feed, so creative, targeting and bidding are built for each channel.</p>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Why ClickNEngage</span>
+        <h2>Clicks are cheap. Engagement is the job.</h2>
+      </div>
+      <div class="why">
+        <div><h3>Built around your KPI</h3><p>We agree on one number at the start, whether that's cost per lead, ROAS or sign-ups, and every decision answers to it.</p></div>
+        <div><h3>Test, learn, scale</h3><p>New audiences and creatives are tested every week. Winners get budget, losers get switched off fast.</p></div>
+        <div><h3>Reporting you can read</h3><p>A plain-language report and a live dashboard. You always know where the money went and what it earned.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How we work</span>
+        <h2>From first call to scaled campaigns</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Audit</h3><p>We review your accounts, tracking, funnel and competitors to find what's leaking budget.</p></li>
+        <li><h3>Strategy</h3><p>A channel plan, budget split and creative brief tied to the KPI we agreed on.</p></li>
+        <li><h3>Launch</h3><p>Campaigns, landing pages and tracking go live, with test cells ready from day one.</p></li>
+        <li><h3>Optimise &amp; scale</h3><p>Weekly bid, audience and creative changes, then more budget where returns hold up.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="contact" style="padding-top:0">
+    <div class="wrap contact">
+      <div class="contact-info">
+        <span class="eyebrow">Contact</span>
+        <h2>Ready to turn clicks into customers?</h2>
+        <p>Tell us about your business and goals. We'll come back with a free audit and a first plan.</p>
+        <div class="email-row">
+          <code id="email">hello@clicknengage.com</code>
+          <button class="btn btn-ghost" type="button" id="copyEmail">Copy email</button>
+        </div>
+      </div>
+      <form id="leadForm" novalidate>
+        <div class="row">
+          <label for="f-name">Your name<input id="f-name" name="name" required autocomplete="name" placeholder="Priya Sharma"></label>
+          <label for="f-email">Work email<input id="f-email" name="email" type="email" required autocomplete="email" placeholder="priya@company.com"></label>
+        </div>
+        <div class="row">
+          <label for="f-company">Company<input id="f-company" name="company" autocomplete="organization" placeholder="Company name"></label>
+          <label for="f-budget">Monthly ad budget
+            <select id="f-budget" name="budget">
+              <option>Under ₹1 lakh</option><option>₹1–5 lakh</option><option>₹5–20 lakh</option><option>₹20 lakh+</option>
+            </select>
+          </label>
+        </div>
+        <label for="f-msg">What do you want to grow?<textarea id="f-msg" name="message" placeholder="e.g. More qualified leads for our B2B software, at a lower cost per lead"></textarea></label>
+        <button class="btn btn-hot" type="submit" style="justify-self:start">Request my free audit</button>
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top"><svg aria-hidden="true" style="width:30px;height:30px"><use href="#cneMark"/></svg><span class="wordmark" style="font-size:1.05rem">Click<b>N</b>Engage</span></a>
+    <span>© 2026 ClickNEngage · clicknengage.com</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- 3D click-ripple grid ---------- */
+  const canvas = document.getElementById('grid3d');
+  if (window.THREE && canvas) {
+    try {
+      const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 200);
+      const COLS = 46, ROWS = 26, N = COLS*ROWS;
+      const geo = new THREE.BoxGeometry(0.78, 1, 0.78);
+      const mat = new THREE.MeshStandardMaterial({roughness:.45, metalness:.15});
+      const mesh = new THREE.InstancedMesh(geo, mat, N);
+      scene.add(mesh);
+      scene.add(new THREE.AmbientLight(0xffffff, .55));
+      const dl = new THREE.DirectionalLight(0xffffff, .9); dl.position.set(-10, 20, 12); scene.add(dl);
+      const pts = []; for (let r=0;r<ROWS;r++) for (let c=0;c<COLS;c++) pts.push([c - COLS/2 + 6, r - ROWS/2]);
+
+      let cCool, cWarm, cHot;
+      function readColors(){
+        const s = getComputedStyle(document.documentElement);
+        cCool = new THREE.Color(s.getPropertyValue('--cool').trim() || '#2EC4B6');
+        cWarm = new THREE.Color(s.getPropertyValue('--warm').trim() || '#FFC23D');
+        cHot  = new THREE.Color(s.getPropertyValue('--hot').trim()  || '#FF5A36');
+      }
+      readColors();
+      matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ()=>{ readColors(); if (reduce) draw(3); });
+      new MutationObserver(()=>{ readColors(); if (reduce) draw(3); }).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+      const ripples = [];
+      const dummy = new THREE.Object3D(); const col = new THREE.Color();
+      let mx = 0, my = 0;
+
+      function resize(){
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w/h;
+        const narrow = w < 760;
+        camera.position.set(narrow ? 6 : 0, narrow ? 30 : 22, narrow ? 26 : 28);
+        camera.updateProjectionMatrix();
+      }
+      new ResizeObserver(resize).observe(canvas); resize();
+
+      function draw(t){
+        for (let i=0;i<ripples.length;i++) if (t - ripples[i].t0 > 6) { ripples.splice(i,1); i--; }
+        for (let i=0;i<N;i++){
+          const [x,z] = pts[i];
+          let h = 0.25 + 0.18*Math.sin(x*0.35 + t*0.9) * Math.cos(z*0.3 + t*0.6);
+          for (const rp of ripples){
+            const age = t - rp.t0, d = Math.hypot(x-rp.x, z-rp.z), front = age*7;
+            h += 2.6 * Math.exp(-age*0.75) * Math.exp(-((d-front)**2)/5);
+          }
+          h = Math.max(0.12, h);
+          dummy.position.set(x, h/2, z); dummy.scale.set(1, h, 1); dummy.updateMatrix();
+          mesh.setMatrixAt(i, dummy.matrix);
+          const k = Math.min(1, h/2);
+          if (k < .5) col.copy(cCool).lerp(cWarm, k*2); else col.copy(cWarm).lerp(cHot, (k-.5)*2);
+          if (h < .45) col.multiplyScalar(.55 + h);
+          mesh.setColorAt(i, col);
+        }
+        mesh.instanceMatrix.needsUpdate = true; mesh.instanceColor.needsUpdate = true;
+        camera.lookAt(6 + mx*1.5, 0, my*1.2);
+        renderer.render(scene, camera);
+      }
+
+      const ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0,1,0), 0), hit = new THREE.Vector3();
+      const clock = new THREE.Clock();
+      canvas.addEventListener('pointerdown', e=>{
+        const r = canvas.getBoundingClientRect();
+        ray.setFromCamera({x:((e.clientX-r.left)/r.width)*2-1, y:-((e.clientY-r.top)/r.height)*2+1}, camera);
+        if (ray.ray.intersectPlane(plane, hit)) ripples.push({x:hit.x, z:hit.z, t0:clock.getElapsedTime()});
+        if (reduce) draw(clock.getElapsedTime());
+      });
+      canvas.addEventListener('pointermove', e=>{
+        const r = canvas.getBoundingClientRect();
+        mx = (e.clientX-r.left)/r.width - .5; my = (e.clientY-r.top)/r.height - .5;
+      });
+
+      if (reduce) {
+        ripples.push({x:12, z:0, t0:1.2}); draw(1.6);
+      } else {
+        let visible = true, last = 0;
+        new IntersectionObserver(([en])=>{ visible = en.isIntersecting; }).observe(canvas);
+        ripples.push({x:14, z:-2, t0:0.2});
+        (function loop(){
+          requestAnimationFrame(loop);
+          if (!visible) return;
+          const t = clock.getElapsedTime();
+          if (t - last > 2.4) { last = t; ripples.push({x: 4 + Math.random()*18, z: (Math.random()-.5)*20, t0:t}); }
+          draw(t);
+        })();
+      }
+    } catch(err) { canvas.hidden = true; }
+  } else if (canvas) { canvas.hidden = true; }
+
+  /* ---------- Tilt cards ---------- */
+  if (!reduce) document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('pointermove', e=>{
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX-r.left)/r.width, py = (e.clientY-r.top)/r.height;
+      card.style.setProperty('--ry', ((px-.5)*14).toFixed(2)+'deg');
+      card.style.setProperty('--rx', ((.5-py)*14).toFixed(2)+'deg');
+      card.style.setProperty('--mx', (px*100)+'%'); card.style.setProperty('--my', (py*100)+'%');
+    });
+    card.addEventListener('pointerleave', ()=>{ card.style.setProperty('--rx','0deg'); card.style.setProperty('--ry','0deg'); });
+  });
+
+  /* ---------- Copy email ---------- */
+  const copyBtn = document.getElementById('copyEmail');
+  copyBtn.addEventListener('click', ()=>{
+    const text = document.getElementById('email').textContent;
+    const done = ()=>{ copyBtn.textContent = 'Copied'; setTimeout(()=>copyBtn.textContent='Copy email', 1600); };
+    try {
+      navigator.clipboard.writeText(text).then(done).catch(selectIt);
+    } catch(e){ selectIt(); }
+    function selectIt(){ const r = document.createRange(); r.selectNodeContents(document.getElementById('email')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = 'Press Ctrl+C'; }
+  });
+
+  /* ---------- Form (front-end only until connected) ---------- */
+  const form = document.getElementById('leadForm'), status = document.getElementById('formStatus');
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    const nameEl = document.getElementById('f-name'), emailEl = document.getElementById('f-email');
+    const name = nameEl.value.trim(), email = emailEl.value.trim();
+    if (!name) { status.style.color='var(--hot)'; status.textContent = 'Add your name so we know who to reply to.'; nameEl.focus(); return; }
+    if (!/^\S+@\S+\.\S+$/.test(email)) { status.style.color='var(--hot)'; status.textContent = 'Enter a valid email address, like name@company.com.'; emailEl.focus(); return; }
+    status.style.color='var(--cool)';
+    status.textContent = 'Thanks, ' + name + '. This form is a preview and is not connected to an inbox yet, so please also email hello@clicknengage.com.';
+  });
+})();
+</script>
